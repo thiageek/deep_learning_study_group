@@ -39,7 +39,7 @@ def geraClasses( vx, vy ):
         x = vx[ i ]
         y = vy[ i ]
         
-        classe = 0;
+        classe = 0
         if ( x < 0 ):
             if ( y > 0 ):
                 c = x - y + 1
