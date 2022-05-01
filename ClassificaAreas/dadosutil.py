@@ -99,7 +99,7 @@ def classeToSaida( classeI ):
 
 def saidaToClasse( saida ):    
     for i in range( 0, 9 ):
-        if ( round( saida[i] ) > 0.5 ):
+        if ( saida[i] >= 0.5 ):
             return i;
     return 0; 
             

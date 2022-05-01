@@ -15,9 +15,11 @@ from keras.losses import MeanSquaredError
 
 from sklearn.model_selection import train_test_split
 
+from matplotlib import pyplot as plt
+
 import dadosutil as dsutil
 
-vx, vy = dsutil.geraPontos( 1000 )
+vx, vy = dsutil.geraPontos( 10000 )
 vclasses = dsutil.geraClasses( vx, vy )
 
 pontos = dsutil.xyVetsToPontos( vx, vy );
@@ -30,10 +32,25 @@ model.add(Dense(5, activation='selu',input_dim=2))
 model.add(Dense(5, activation='selu'))
 model.add(Dense(9, activation='softmax'))
 
-optimizer=SGD(momentum=0.9)
-model.compile(loss=MeanSquaredError(), optimizer=optimizer)
+optimizer=SGD(momentum=0.75)
+model.compile(loss=MeanSquaredError(), optimizer=optimizer, metrics=['mse'])
 
-historico=model.fit( x_treino, y_treino, validation_data=(x_teste, y_teste), batch_size=64, epochs=1000 )
+historico=model.fit( x_treino, y_treino, validation_data=(x_teste, y_teste), batch_size=64, epochs=500 )
 
-model.save( 'rna_momentum.p5')      
+model.save( 'rna_momentum.p5')
+
+plt.plot(historico.history['val_mse'])
+plt.title('Curvas de erro de validação')
+plt.xlabel('Epocas')
+plt.ylabel('Val. erro')
+plt.legend(['Val. Erro QM'], loc='upper left')
+plt.show()
+
+
+plt.plot(historico.history['mse'])
+plt.title('Curvas de erro quadrático médio')
+plt.xlabel('Epocas')
+plt.ylabel('Erro')
+plt.legend(['Erro QM'], loc='upper left')
+plt.show()      
 
