@@ -27,9 +27,12 @@ def plot_model(historico: pd.DataFrame):
 def evaluate_model(model, X_test, y_test):
     yhat = model.predict(X_test)
     r2 = r2_score(y_test, yhat)
-    plt.plot(yhat, label='results', )
-    plt.plot(y_test, label='exact curve',alpha = 0.4)
+    plt.plot(yhat, label='Valores Preditos', )
+    plt.plot(y_test, label='Valores Reais',alpha = 0.4)
+    plt.title('Valores Reais x Valores Preditos',fontsize = 14, fontweight = 'bold')
+    plt.text(x = 330000, y = 0, s = f"O resultado desse modelo considerando o R2 Score é de {round(r2,2)}")
     plt.legend()
+    plt.show()
     print(f"O resultado desse modelo considerando o R2 Score é de {r2}")
 def build_nn(X,y):
     X_train, X_test, y_train, y_test =train_test_split(X, y, test_size=0.25, random_state=42)   
@@ -41,9 +44,10 @@ def build_nn(X,y):
 
     model.add(Dense(units = 1, activation = 'selu'))
     model.compile(optimizer = 'adamax', loss='mse', metrics=['mse','accuracy'])
-    historico = model.fit(x=X_train, y=y_train, validation_data = (X_test,y_test), batch_size=10, epochs=1000, verbose=2)
+    historico = model.fit(x=X_train, y=y_train, validation_data = (X_test,y_test), batch_size=10, epochs=100, verbose=2)
     evaluate_model(model,X_test,y_test)
     plot_model(historico)
     return model 
 X,y  = generate_samples(50)
-build_nn(X,y)
+model = build_nn(X,y)
+model.save("eq5.p5")
