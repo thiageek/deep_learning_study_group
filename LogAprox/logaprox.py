@@ -10,6 +10,8 @@ from keras.layers import Dense
 
 from keras.losses import MeanSquaredError
 
+from tensorflow.keras.optimizers import Adam
+
 from matplotlib import pyplot as plt
 
 from sklearn.model_selection import train_test_split
@@ -54,9 +56,18 @@ historico=model.fit( x_treino, y_treino, validation_data=(x_teste, y_teste), bat
 model.save( 'rna.p5')      
     
 plt.plot(historico.history['val_mse'])
+plt.title('Curvas de erro de validação')
+plt.xlabel('Epocas')
+plt.ylabel('Val. erro')
+plt.legend(['Val. Erro QM'], loc='upper left')
+plt.show()
+
+
+plt.plot(historico.history['mse'])
 plt.title('Curvas de erro quadrático médio')
 plt.xlabel('Epocas')
-plt.ylabel('Erro médio')
-plt.legend(['validação'], loc='upper left')
+plt.ylabel('Erro')
+plt.legend(['Erro QM'], loc='upper left')
 plt.show()
+
 

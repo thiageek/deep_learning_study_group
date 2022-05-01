@@ -9,6 +9,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from tensorflow.keras.optimizers import SGD
 
+from keras.losses import MeanSquaredError
+
 from matplotlib import pyplot as plt
 
 import random  
@@ -37,16 +39,16 @@ model.add(Dense(2, activation='sigmoid',input_dim=2))
 model.add(Dense(1, activation='sigmoid'))
 
 sgd = SGD(learning_rate=0.5)
-model.compile(loss="binary_crossentropy", optimizer=sgd, metrics=['accuracy'])
+model.compile(loss=MeanSquaredError(), optimizer=sgd, metrics=['mse'])
 
-historico=model.fit( amostras, saidas, batch_size=1, epochs=2500 )
+historico=model.fit( amostras, saidas, batch_size=1, epochs=5000 )
 
 model.save( 'rna.p5')      
     
-plt.plot(historico.history['loss'])
-plt.title('Curvas de precisão')
+plt.plot(historico.history['mse'])
+plt.title('Curvas de erro quadrático médio')
 plt.xlabel('Epocas')
-plt.ylabel('Precisão')
-plt.legend(['validação'], loc='upper right')
+plt.ylabel('Erro')
+plt.legend(['Erro QM'], loc='upper left')
 plt.show()
 
