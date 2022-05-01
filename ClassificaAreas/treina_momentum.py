@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 
 import dadosutil as dsutil
 
-vx, vy = dsutil.geraPontos( 1000 )
+vx, vy = dsutil.geraPontos( 10000 )
 vclasses = dsutil.geraClasses( vx, vy )
 
 pontos = dsutil.xyVetsToPontos( vx, vy );
@@ -30,10 +30,10 @@ model.add(Dense(5, activation='selu',input_dim=2))
 model.add(Dense(5, activation='selu'))
 model.add(Dense(9, activation='softmax'))
 
-optimizer=SGD(momentum=0.9)
+optimizer=SGD(momentum=0.75)
 model.compile(loss=MeanSquaredError(), optimizer=optimizer)
 
-historico=model.fit( x_treino, y_treino, validation_data=(x_teste, y_teste), batch_size=64, epochs=1000 )
+historico=model.fit( x_treino, y_treino, validation_data=(x_teste, y_teste), batch_size=64, epochs=500 )
 
 model.save( 'rna_momentum.p5')      
 

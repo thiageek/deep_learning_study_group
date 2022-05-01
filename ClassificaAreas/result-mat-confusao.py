@@ -11,7 +11,7 @@ from keras.models import load_model
 
 import dadosutil as dsutil
 
-model = load_model( 'rna.p5' )
+model = load_model( 'rna_momentum.p5' )
 
 vx, vy = dsutil.geraPontos( 1000 )
 vclasses = dsutil.geraClasses( vx, vy )

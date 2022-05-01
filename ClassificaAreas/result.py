@@ -12,7 +12,7 @@ import dadosutil as dsutil
 #model = load_model( 'rna.p5' )
 model = load_model( 'rna_momentum.p5' )
 
-vx, vy = dsutil.geraPontos( 1000 )
+vx, vy = dsutil.geraPontos( 10000 )
 pontos = dsutil.xyVetsToPontos( vx, vy );
 
 saidas = model.predict( pontos )
