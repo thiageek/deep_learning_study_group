@@ -32,6 +32,13 @@ def plot_model(history: pd.DataFrame):
 def get_metrics(model, X_test:np.array, y_test:np.array):
   yhat = model.predict(X_test)
   r2 = r2_score(y_test, yhat)
+  plt.figure(figsize = (12,6))
+  plt.scatter(y_test,yhat)
+  plt.xlabel('Valores Reais', fontsize = 14)
+  plt.ylabel('Resultados Preditos', fontsize = 14)
+  plt.title("Valores Reais x Valores Preditos",fontsize = 14, fontweight = 'bold')
+  plt.text(x = -0.8, y = 0.90, s=  f"O resultado desse modelo considerando o R2 Score é de {round(r2,2)}", fontsize = 12)
+  plt.show()
   print(f'O resultado desse modelo considerando o R2 Score é de {r2}')
 
 def build_nn(X:list,y:list):
